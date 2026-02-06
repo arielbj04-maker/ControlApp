@@ -1,0 +1,5 @@
+{
+  "name": "ArcadeRent Manager",
+  "description": "Una aplicación de gestión para negocios de alquiler de metegoles y máquinas de juegos. Calcula ganancias, porcentajes y gestiona la recaudación por fichas.",
+  "requestFramePermissions": []
+}
