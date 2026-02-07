@@ -207,17 +207,18 @@ const App: React.FC = () => {
     const location = locations.find(l => l.id === machine.locationId);
     if (location) {
         // 2. Prioridad: Precio del cliente según el tipo de máquina
-        const pMetegol = location.priceMetegol as number | undefined;
+        // Use unknown type assertion to ensure type guard works correctly against any inferred 'unknown' types
+        const pMetegol: unknown = location.priceMetegol;
         if (machine.type === MachineType.METEGOL && typeof pMetegol === 'number' && pMetegol > 0) {
             return { price: pMetegol, source: 'Cliente (Tipo)' };
         }
         
-        const pPinball = location.pricePinball as number | undefined;
+        const pPinball: unknown = location.pricePinball;
         if (machine.type === MachineType.PINBALL && typeof pPinball === 'number' && pPinball > 0) {
             return { price: pPinball, source: 'Cliente (Tipo)' };
         }
         
-        const pVolante = location.priceVolante as number | undefined;
+        const pVolante: unknown = location.priceVolante;
         if (machine.type === MachineType.VOLANTE && typeof pVolante === 'number' && pVolante > 0) {
             return { price: pVolante, source: 'Cliente (Tipo)' };
         }
