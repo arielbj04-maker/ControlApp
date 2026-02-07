@@ -11,7 +11,7 @@ import {
   Save, 
   Trash2,
   Users,
-  MapPin,
+  MapPin, 
   Joystick,
   DollarSign,
   Pencil,
@@ -43,7 +43,7 @@ import {
   updateLocation, 
   deleteLocation,
   subscribeToMachines,
-  addMachine,
+  addMachine, 
   deleteMachine,
   subscribeToCollections,
   addCollection,
@@ -207,14 +207,19 @@ const App: React.FC = () => {
     const location = locations.find(l => l.id === machine.locationId);
     if (location) {
         // 2. Prioridad: Precio del cliente según el tipo de máquina
-        if (machine.type === MachineType.METEGOL && location.priceMetegol && location.priceMetegol > 0) {
-            return { price: location.priceMetegol, source: 'Cliente (Tipo)' };
+        const pMetegol = location.priceMetegol as number | undefined;
+        if (machine.type === MachineType.METEGOL && typeof pMetegol === 'number' && pMetegol > 0) {
+            return { price: pMetegol, source: 'Cliente (Tipo)' };
         }
-        if (machine.type === MachineType.PINBALL && location.pricePinball && location.pricePinball > 0) {
-            return { price: location.pricePinball, source: 'Cliente (Tipo)' };
+        
+        const pPinball = location.pricePinball as number | undefined;
+        if (machine.type === MachineType.PINBALL && typeof pPinball === 'number' && pPinball > 0) {
+            return { price: pPinball, source: 'Cliente (Tipo)' };
         }
-        if (machine.type === MachineType.VOLANTE && location.priceVolante && location.priceVolante > 0) {
-            return { price: location.priceVolante, source: 'Cliente (Tipo)' };
+        
+        const pVolante = location.priceVolante as number | undefined;
+        if (machine.type === MachineType.VOLANTE && typeof pVolante === 'number' && pVolante > 0) {
+            return { price: pVolante, source: 'Cliente (Tipo)' };
         }
     }
 
@@ -1415,9 +1420,9 @@ const App: React.FC = () => {
                             // Determine inherited price for display
                             let inheritedPrice = TOKEN_PRICE;
                             if (loc) {
-                                if (mach.type === MachineType.METEGOL && loc.priceMetegol) inheritedPrice = loc.priceMetegol;
-                                else if (mach.type === MachineType.PINBALL && loc.pricePinball) inheritedPrice = loc.pricePinball;
-                                else if (mach.type === MachineType.VOLANTE && loc.priceVolante) inheritedPrice = loc.priceVolante;
+                                if (mach.type === MachineType.METEGOL && loc.priceMetegol) inheritedPrice = loc.priceMetegol as number;
+                                else if (mach.type === MachineType.PINBALL && loc.pricePinball) inheritedPrice = loc.pricePinball as number;
+                                else if (mach.type === MachineType.VOLANTE && loc.priceVolante) inheritedPrice = loc.priceVolante as number;
                             }
 
                             return (
